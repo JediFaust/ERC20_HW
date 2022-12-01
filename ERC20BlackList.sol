@@ -129,6 +129,8 @@ contract ERC20BlackList {
     }
     
     function _mint(address to_, uint256 amount_) internal {
+        require(to_ != address(0), "Mint to zero address!");
+        
         balances[to_] += amount_;
         _totalSupply += amount_;
 
