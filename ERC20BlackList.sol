@@ -9,7 +9,6 @@ pragma solidity ^0.8.0;
 contract ERC20BlackList {
     address owner;
     uint8 private _decimals;
-    bool muted;
     uint256 private _totalSupply;
     string private _name;
     string private _symbol;
@@ -83,6 +82,7 @@ contract ERC20BlackList {
     }
 
     function _transfer(address from_, address to_, uint256 amount_) internal {
+        require(from_ != address(0) && to_ != address(0), "Can't be zero address");
         require(balances[from_] >= amount_, "Not enough balance");
         require(
             blackListedUntil[from_] < block.timestamp
